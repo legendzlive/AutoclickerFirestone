@@ -1,50 +1,56 @@
-# AutoclickerFirestone
+## Requirements
 
---- Requirements ---
+**Important:** Must set the display resolution to **2560x1440**!
 
-0. Must set the display resolution to 2560x1440 !!!
+1. **Download the training data for Tesseract-OCR:**
 
-1. Download the training data for Tesseract-OCR here:
-https://github.com/tesseract-ocr/tessdata
+   Download it [here](https://github.com/tesseract-ocr/tessdata).
 
-2. Unzip and place training data in the folder C:/OCR
+2. **Unzip and place the training data:**
 
-folder structure should look like: (you need all files, not only the ones listed here)
+   Extract the files and place them in the folder `C:/OCR`. The folder structure should look like this (you need all files, not just the ones listed):
 
 C:/OCR/tessdata/script
-
 C:/OCR/tessdata/tessconfigs
-
 C:/OCR/tessdata/eng.traineddata
-
 ...
 
-3. Add environment variable to windows named 'TESSDATA_PREFIX', set the value to 'C:\OCR'
+3. **Add environment variable:**
 
-4. Start the application
+Add an environment variable to Windows named `TESSDATA_PREFIX`, and set the value to `C:\OCR`.
 
-5. Set your 'Define offset-x' parameter. 0 = main screen, -2560 = left screen, 2560 = right screen.
+4. **Start the application.**
 
---- Info ---
+5. **Set the 'Define offset-x' parameter:**
 
-How this application works:
-It's a mix of OCR (Optical character recognition -> text) and image comparison (stock screenshots vs realtime screenshots).
+- `0` = main screen
+- `-2560` = left screen
+- `2560` = right screen
 
-When the program clicks somewhere in firestone, it's using the 'pixel' to get an X/Y coordinate and it will click there.
-When the program needs to compare images or retrieve text, it will use an 'image'. Based on the image list two points (X,Y) are given.
-The top left point of the rectangle and the bottom right point of the rectangle. 
+## Info
 
-All of these can be easily changed/created from within the application if needed.
+### How this application works:
 
-Normally seen everything should be good to go without any changes. 
-The only params that the user should tweak are the 'Pixels' starting with 'A_'.
-The other ones should be fine as they are.
+This application is a mix of **OCR (Optical Character Recognition)** and **image comparison** (comparing stock screenshots with real-time screenshots).
 
-In order to update a pixel, select the pixel from the list, click the 'Update pixel' button, now hover your mouse to the desires location, press 'space'.
-The pixel will now have the updated coordinates.
+- **Clicking in Firestone:** The program uses a 'pixel' to get an X/Y coordinate and clicks there.
+- **Image comparison and text retrieval:** The program uses an 'image' to determine two points (X,Y), which define a rectangle (top-left and bottom-right corners).
 
-Settings are saved automatically when exiting the app. 
+All of these settings can be easily changed or created from within the application if needed.
 
---- Known bugs ---
-The 'Stop' button works, but when pressing 'Start' after having pressed 'Stop' issues occur.
-For this reason when pressing stop the application is closed.
+### Default Setup:
+
+Normally, everything should be good to go without any changes. The only parameters that the user should tweak are the 'Pixels' starting with `A_`. The other ones should be fine as they are.
+
+### Updating a Pixel:
+
+1. Select the pixel from the list.
+2. Click the 'Update pixel' button.
+3. Hover your mouse to the desired location and press `space`.
+4. The pixel will now have the updated coordinates.
+
+**Note:** Settings are saved automatically when exiting the app.
+
+## Known Bugs
+
+- The 'Stop' button works, but pressing 'Start' after pressing 'Stop' causes issues. To avoid this, the application will close when 'Stop' is pressed.
