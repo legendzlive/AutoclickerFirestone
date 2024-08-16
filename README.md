@@ -10,10 +10,14 @@ https://github.com/tesseract-ocr/tessdata
 2. Unzip and place training data in the folder C:/OCR
 
 folder structure should look like: (you need all files, not only the ones listed here)
-	C:/OCR/tessdata/script
-	C:/OCR/tessdata/tessconfigs
-	C:/OCR/tessdata/eng.traineddata
-	...
+
+C:/OCR/tessdata/script
+
+C:/OCR/tessdata/tessconfigs
+
+C:/OCR/tessdata/eng.traineddata
+
+...
 
 3. Add environment variable to windows named 'TESSDATA_PREFIX', set the value to 'C:\OCR'
 
