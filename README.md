@@ -54,3 +54,6 @@ Normally, everything should be good to go without any changes. The only paramete
 ## Known Bugs
 
 - The 'Stop' button works, but pressing 'Start' after pressing 'Stop' causes issues. To avoid this, the application will close when 'Stop' is pressed.
+
+![screenshot](https://github.com/user-attachments/assets/3881b291-94a6-4cfa-a526-5dd4be38a904)
+
