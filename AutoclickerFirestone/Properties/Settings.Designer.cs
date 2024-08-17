@@ -322,5 +322,41 @@ namespace AutoclickerFirestone.Properties {
                 this["TaskMeteoriteResearch"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TaskDailyMissions {
+            get {
+                return ((bool)(this["TaskDailyMissions"]));
+            }
+            set {
+                this["TaskDailyMissions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TaskCampaignLoot {
+            get {
+                return ((bool)(this["TaskCampaignLoot"]));
+            }
+            set {
+                this["TaskCampaignLoot"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TaskEngineerReward {
+            get {
+                return ((bool)(this["TaskEngineerReward"]));
+            }
+            set {
+                this["TaskEngineerReward"] = value;
+            }
+        }
     }
 }

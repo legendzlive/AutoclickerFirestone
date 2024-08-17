@@ -121,6 +121,9 @@ namespace AutoclickerFirestone
             cbTaskMeteoriteResearch.Checked = Properties.Settings.Default.TaskMeteoriteResearch;
             cbTaskTrainGuardian.Checked = Properties.Settings.Default.TaskTrainGuardian;
             cbTaskMapMissions.Checked = Properties.Settings.Default.TaskMapMissions;
+            cbTaskDailyMissions.Checked = Properties.Settings.Default.TaskDailyMissions;
+            cbTaskCampaignLoot.Checked = Properties.Settings.Default.TaskCampaignLoot;
+            cbTaskEngineerReward.Checked = Properties.Settings.Default.TaskEngineerReward;
             cbTaskAutoclick.Checked = Properties.Settings.Default.TaskAutoclick;
 
             cbAlchemistDragonBlood.Checked = Properties.Settings.Default.AlchemistDragonBlood;
@@ -1077,7 +1080,10 @@ namespace AutoclickerFirestone
                 FirestoneResearch();
                 MeteoriteResearch();
                 TrainGuardian();
+                EngineerReward();
+                CampaignLoot();
                 MapMissions();
+                DailyMissions();                
                 UpdateCurrentStage();
 
                 if (cbTaskAutoclick.Checked)
@@ -2321,6 +2327,17 @@ namespace AutoclickerFirestone
         private void ButtonTestMission_Click(object sender, EventArgs e)
         {
             SetOffset();
+            DailyMissions();
+        }
+
+        private void DailyMissions()
+        {
+            if (cbTaskDailyMissions.Checked == false)
+            {
+                return;
+            }
+
+            Logging("Start daily missions");
 
             AutoClicker.SendKey("Firestone", "{M}");
             MediumSleep();
@@ -2376,6 +2393,7 @@ namespace AutoclickerFirestone
                 Pixel LiberateRewardButton = GetPixelByName("LiberateRewardButton");
                 AutoClicker.LeftClickAtPosition(LiberateRewardButton.Point);
                 MediumSleep();
+                Logging("Daily mission 1 is ready.");
             }
             MediumSleep();
 
@@ -2404,6 +2422,7 @@ namespace AutoclickerFirestone
                 Pixel LiberateRewardButton = GetPixelByName("LiberateRewardButton");
                 AutoClicker.LeftClickAtPosition(LiberateRewardButton.Point);
                 MediumSleep();
+                Logging("Daily mission 2 is ready.");
             }
             MediumSleep();
 
@@ -2432,6 +2451,7 @@ namespace AutoclickerFirestone
                 Pixel LiberateRewardButton = GetPixelByName("LiberateRewardButton");
                 AutoClicker.LeftClickAtPosition(LiberateRewardButton.Point);
                 MediumSleep();
+                Logging("Daily mission 3 is ready.");
             }
             MediumSleep();
 
@@ -2460,6 +2480,7 @@ namespace AutoclickerFirestone
                 Pixel LiberateRewardButton = GetPixelByName("LiberateRewardButton");
                 AutoClicker.LeftClickAtPosition(LiberateRewardButton.Point);
                 MediumSleep();
+                Logging("Daily mission 4 is ready.");
             }
             MediumSleep();
 
@@ -2467,6 +2488,134 @@ namespace AutoclickerFirestone
             direction = -1;
             AutoClicker.ScrollMouseWheel(MissionsMenuCenter.Point, direction, 48);
 
+            MediumSleep();
+
+            // Check if mission 5 is available
+            Liberate = GetImageByName("Liberate5");
+            screenshot = TakeScreenshot(Liberate.PointA, Liberate.PointB);
+            screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+            CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+            if (CurrentText.ToLower().Trim() == "liberate")
+            {
+                Console.WriteLine("Mission4 needs to be done");
+
+                Pixel Liberate5 = GetPixelByName("Liberate5");
+                AutoClicker.LeftClickAtPosition(Liberate5.Point);
+                MediumSleep();
+
+                CurrentText = "";
+                while (CurrentText.Trim().ToUpper() != "OK")
+                {
+                    Image LiberateReward = GetImageByName("LiberateReward");
+                    screenshot = TakeScreenshot(LiberateReward.PointA, LiberateReward.PointB);
+                    screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+                    CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+                    LongSleep();
+                }
+                Pixel LiberateRewardButton = GetPixelByName("LiberateRewardButton");
+                AutoClicker.LeftClickAtPosition(LiberateRewardButton.Point);
+                MediumSleep();
+                Logging("Daily mission 5 is ready.");
+            }
+            MediumSleep();
+
+            // Check if mission 6 is available
+            Liberate = GetImageByName("Liberate6");
+            screenshot = TakeScreenshot(Liberate.PointA, Liberate.PointB);
+            screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+            CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+            if (CurrentText.ToLower().Trim() == "liberate")
+            {
+                Console.WriteLine("Mission4 needs to be done");
+
+                Pixel Liberate6 = GetPixelByName("Liberate6");
+                AutoClicker.LeftClickAtPosition(Liberate6.Point);
+                MediumSleep();
+
+                CurrentText = "";
+                while (CurrentText.Trim().ToUpper() != "OK")
+                {
+                    Image LiberateReward = GetImageByName("LiberateReward");
+                    screenshot = TakeScreenshot(LiberateReward.PointA, LiberateReward.PointB);
+                    screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+                    CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+                    LongSleep();
+                }
+                Pixel LiberateRewardButton = GetPixelByName("LiberateRewardButton");
+                AutoClicker.LeftClickAtPosition(LiberateRewardButton.Point);
+                MediumSleep();
+                Logging("Daily mission 6 is ready.");
+            }
+            MediumSleep();
+
+            // Check if mission 7 is available
+            Liberate = GetImageByName("Liberate7");
+            screenshot = TakeScreenshot(Liberate.PointA, Liberate.PointB);
+            screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+            CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+            if (CurrentText.ToLower().Trim() == "liberate")
+            {
+                Console.WriteLine("Mission4 needs to be done");
+
+                Pixel Liberate7 = GetPixelByName("Liberate7");
+                AutoClicker.LeftClickAtPosition(Liberate7.Point);
+                MediumSleep();
+
+                CurrentText = "";
+                while (CurrentText.Trim().ToUpper() != "OK")
+                {
+                    Image LiberateReward = GetImageByName("LiberateReward");
+                    screenshot = TakeScreenshot(LiberateReward.PointA, LiberateReward.PointB);
+                    screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+                    CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+                    LongSleep();
+                }
+                Pixel LiberateRewardButton = GetPixelByName("LiberateRewardButton");
+                AutoClicker.LeftClickAtPosition(LiberateRewardButton.Point);
+                MediumSleep();
+                Logging("Daily mission 7 is ready.");
+            }
+            MediumSleep();
+
+            // Check if mission 8 is available
+            Liberate = GetImageByName("Liberate8");
+            screenshot = TakeScreenshot(Liberate.PointA, Liberate.PointB);
+            screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+            CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+            if (CurrentText.ToLower().Trim() == "liberate")
+            {
+                Console.WriteLine("Mission4 needs to be done");
+
+                Pixel Liberate8 = GetPixelByName("Liberate8");
+                AutoClicker.LeftClickAtPosition(Liberate8.Point);
+                MediumSleep();
+
+                CurrentText = "";
+                while (CurrentText.Trim().ToUpper() != "OK")
+                {
+                    Image LiberateReward = GetImageByName("LiberateReward");
+                    screenshot = TakeScreenshot(LiberateReward.PointA, LiberateReward.PointB);
+                    screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+                    CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+                    LongSleep();
+                }
+                Pixel LiberateRewardButton = GetPixelByName("LiberateRewardButton");
+                AutoClicker.LeftClickAtPosition(LiberateRewardButton.Point);
+                MediumSleep();
+                Logging("Daily mission 8 is ready.");
+            }
+            MediumSleep();
+
+            // Show the final mission (9)
+            //direction = -1;
+            //AutoClicker.ScrollMouseWheel(MissionsMenuCenter.Point, direction, 48);
+
+            Logging("Finished daily missions");
+
+            AutoClicker.SendKey("Firestone", "{ESC}");
+            MediumSleep();
+
+            AutoClicker.SendKey("Firestone", "{ESC}");
             MediumSleep();
         }
 
@@ -2505,6 +2654,9 @@ namespace AutoclickerFirestone
             Properties.Settings.Default.TaskMeteoriteResearch = cbTaskMeteoriteResearch.Checked;
             Properties.Settings.Default.TaskTrainGuardian = cbTaskTrainGuardian.Checked;
             Properties.Settings.Default.TaskMapMissions = cbTaskMapMissions.Checked;
+            Properties.Settings.Default.TaskDailyMissions = cbTaskDailyMissions.Checked;
+            Properties.Settings.Default.TaskCampaignLoot = cbTaskCampaignLoot.Checked;
+            Properties.Settings.Default.TaskEngineerReward = cbTaskEngineerReward.Checked;
             Properties.Settings.Default.TaskAutoclick = cbTaskAutoclick.Checked;
 
             Properties.Settings.Default.AlchemistDragonBlood = cbAlchemistDragonBlood.Checked;
@@ -2512,6 +2664,75 @@ namespace AutoclickerFirestone
             Properties.Settings.Default.AlchemistExoticCoin = cbAlchemistExoticCoin.Checked;
 
             Properties.Settings.Default.Save();
+        }
+
+        private void EngineerReward()
+        {
+            if (cbTaskEngineerReward.Checked == false)
+            {
+                return;
+            }
+
+            Logging("Start engineer reward");
+
+            AutoClicker.SendKey("Firestone", "{T}");
+            MediumSleep();
+
+            Pixel TownEngineer = GetPixelByName("TownEngineer");
+            AutoClicker.LeftClickAtPosition(TownEngineer.Point);
+
+            MediumSleep();
+
+            Pixel TownEngineerEngineer = GetPixelByName("TownEngineerEngineer");
+            AutoClicker.LeftClickAtPosition(TownEngineerEngineer.Point);
+
+            MediumSleep();
+
+            Pixel TownEngineerTab1 = GetPixelByName("TownEngineerTab1");
+            AutoClicker.LeftClickAtPosition(TownEngineerTab1.Point);
+
+            MediumSleep();
+
+            Pixel TownEngineerClaim = GetPixelByName("TownEngineerClaim");
+            AutoClicker.LeftClickAtPosition(TownEngineerClaim.Point);
+
+            MediumSleep();            
+
+            AutoClicker.SendKey("Firestone", "{ESC}");
+            MediumSleep();
+
+            AutoClicker.SendKey("Firestone", "{ESC}");
+            MediumSleep();
+
+            Logging("Finished engineer reward");
+        }
+
+        private void CampaignLoot()
+        {
+            if (cbTaskCampaignLoot.Checked == false)
+            {
+                return;
+            }
+
+            Logging("Start campaign loot");
+
+            AutoClicker.SendKey("Firestone", "{M}");
+            MediumSleep();
+
+            Pixel MapMissionsTankIcon = GetPixelByName("MapMissionsTankIcon");
+            AutoClicker.LeftClickAtPosition(MapMissionsTankIcon.Point);
+
+            MediumSleep();
+
+            Pixel DailyMissionsButton = GetPixelByName("CampaignLootClaim");
+            AutoClicker.LeftClickAtPosition(DailyMissionsButton.Point);
+
+            MediumSleep();
+
+            Logging("Finished campaign loot");
+
+            AutoClicker.SendKey("Firestone", "{ESC}");
+            MediumSleep();
         }
     }
 }

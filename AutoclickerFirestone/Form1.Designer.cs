@@ -132,6 +132,9 @@
             this.cbAlchemistStrangeDust = new System.Windows.Forms.CheckBox();
             this.cbAlchemistExoticCoin = new System.Windows.Forms.CheckBox();
             this.cbTaskMeteoriteResearch = new System.Windows.Forms.CheckBox();
+            this.cbTaskDailyMissions = new System.Windows.Forms.CheckBox();
+            this.cbTaskCampaignLoot = new System.Windows.Forms.CheckBox();
+            this.cbTaskEngineerReward = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageStored)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPixelStored)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPixelActual)).BeginInit();
@@ -906,7 +909,7 @@
             // 
             // ButtonTestResearchScroll
             // 
-            this.ButtonTestResearchScroll.Location = new System.Drawing.Point(831, 435);
+            this.ButtonTestResearchScroll.Location = new System.Drawing.Point(759, 465);
             this.ButtonTestResearchScroll.Name = "ButtonTestResearchScroll";
             this.ButtonTestResearchScroll.Size = new System.Drawing.Size(141, 23);
             this.ButtonTestResearchScroll.TabIndex = 110;
@@ -933,7 +936,7 @@
             // 
             // ButtonTestMapScroll
             // 
-            this.ButtonTestMapScroll.Location = new System.Drawing.Point(831, 410);
+            this.ButtonTestMapScroll.Location = new System.Drawing.Point(759, 440);
             this.ButtonTestMapScroll.Name = "ButtonTestMapScroll";
             this.ButtonTestMapScroll.Size = new System.Drawing.Size(141, 23);
             this.ButtonTestMapScroll.TabIndex = 112;
@@ -1005,7 +1008,7 @@
             // 
             // ButtonTestDailyMissions
             // 
-            this.ButtonTestDailyMissions.Location = new System.Drawing.Point(831, 386);
+            this.ButtonTestDailyMissions.Location = new System.Drawing.Point(759, 416);
             this.ButtonTestDailyMissions.Name = "ButtonTestDailyMissions";
             this.ButtonTestDailyMissions.Size = new System.Drawing.Size(141, 23);
             this.ButtonTestDailyMissions.TabIndex = 120;
@@ -1035,7 +1038,7 @@
             this.cbTaskUpgradeHeroes.AutoSize = true;
             this.cbTaskUpgradeHeroes.Checked = true;
             this.cbTaskUpgradeHeroes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskUpgradeHeroes.Location = new System.Drawing.Point(955, 498);
+            this.cbTaskUpgradeHeroes.Location = new System.Drawing.Point(954, 390);
             this.cbTaskUpgradeHeroes.Name = "cbTaskUpgradeHeroes";
             this.cbTaskUpgradeHeroes.Size = new System.Drawing.Size(104, 17);
             this.cbTaskUpgradeHeroes.TabIndex = 123;
@@ -1046,7 +1049,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(951, 472);
+            this.label21.Location = new System.Drawing.Point(950, 364);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(55, 20);
             this.label21.TabIndex = 124;
@@ -1057,7 +1060,7 @@
             this.cbTaskOracleRituals.AutoSize = true;
             this.cbTaskOracleRituals.Checked = true;
             this.cbTaskOracleRituals.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskOracleRituals.Location = new System.Drawing.Point(955, 521);
+            this.cbTaskOracleRituals.Location = new System.Drawing.Point(954, 413);
             this.cbTaskOracleRituals.Name = "cbTaskOracleRituals";
             this.cbTaskOracleRituals.Size = new System.Drawing.Size(92, 17);
             this.cbTaskOracleRituals.TabIndex = 125;
@@ -1069,7 +1072,7 @@
             this.cbTaskAlchemist.AutoSize = true;
             this.cbTaskAlchemist.Checked = true;
             this.cbTaskAlchemist.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskAlchemist.Location = new System.Drawing.Point(955, 567);
+            this.cbTaskAlchemist.Location = new System.Drawing.Point(954, 459);
             this.cbTaskAlchemist.Name = "cbTaskAlchemist";
             this.cbTaskAlchemist.Size = new System.Drawing.Size(71, 17);
             this.cbTaskAlchemist.TabIndex = 127;
@@ -1081,7 +1084,7 @@
             this.cbTaskGuildExpeditions.AutoSize = true;
             this.cbTaskGuildExpeditions.Checked = true;
             this.cbTaskGuildExpeditions.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskGuildExpeditions.Location = new System.Drawing.Point(955, 544);
+            this.cbTaskGuildExpeditions.Location = new System.Drawing.Point(954, 436);
             this.cbTaskGuildExpeditions.Name = "cbTaskGuildExpeditions";
             this.cbTaskGuildExpeditions.Size = new System.Drawing.Size(107, 17);
             this.cbTaskGuildExpeditions.TabIndex = 126;
@@ -1093,7 +1096,7 @@
             this.cbTaskAutoclick.AutoSize = true;
             this.cbTaskAutoclick.Checked = true;
             this.cbTaskAutoclick.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskAutoclick.Location = new System.Drawing.Point(955, 682);
+            this.cbTaskAutoclick.Location = new System.Drawing.Point(955, 643);
             this.cbTaskAutoclick.Name = "cbTaskAutoclick";
             this.cbTaskAutoclick.Size = new System.Drawing.Size(70, 17);
             this.cbTaskAutoclick.TabIndex = 131;
@@ -1105,7 +1108,7 @@
             this.cbTaskMapMissions.AutoSize = true;
             this.cbTaskMapMissions.Checked = true;
             this.cbTaskMapMissions.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskMapMissions.Location = new System.Drawing.Point(955, 659);
+            this.cbTaskMapMissions.Location = new System.Drawing.Point(954, 551);
             this.cbTaskMapMissions.Name = "cbTaskMapMissions";
             this.cbTaskMapMissions.Size = new System.Drawing.Size(90, 17);
             this.cbTaskMapMissions.TabIndex = 130;
@@ -1117,7 +1120,7 @@
             this.cbTaskTrainGuardian.AutoSize = true;
             this.cbTaskTrainGuardian.Checked = true;
             this.cbTaskTrainGuardian.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskTrainGuardian.Location = new System.Drawing.Point(955, 636);
+            this.cbTaskTrainGuardian.Location = new System.Drawing.Point(954, 528);
             this.cbTaskTrainGuardian.Name = "cbTaskTrainGuardian";
             this.cbTaskTrainGuardian.Size = new System.Drawing.Size(101, 17);
             this.cbTaskTrainGuardian.TabIndex = 129;
@@ -1129,7 +1132,7 @@
             this.cbTaskFirestoneResearch.AutoSize = true;
             this.cbTaskFirestoneResearch.Checked = true;
             this.cbTaskFirestoneResearch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskFirestoneResearch.Location = new System.Drawing.Point(955, 590);
+            this.cbTaskFirestoneResearch.Location = new System.Drawing.Point(954, 482);
             this.cbTaskFirestoneResearch.Name = "cbTaskFirestoneResearch";
             this.cbTaskFirestoneResearch.Size = new System.Drawing.Size(118, 17);
             this.cbTaskFirestoneResearch.TabIndex = 128;
@@ -1182,18 +1185,57 @@
             this.cbTaskMeteoriteResearch.AutoSize = true;
             this.cbTaskMeteoriteResearch.Checked = true;
             this.cbTaskMeteoriteResearch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskMeteoriteResearch.Location = new System.Drawing.Point(955, 613);
+            this.cbTaskMeteoriteResearch.Location = new System.Drawing.Point(954, 505);
             this.cbTaskMeteoriteResearch.Name = "cbTaskMeteoriteResearch";
             this.cbTaskMeteoriteResearch.Size = new System.Drawing.Size(119, 17);
             this.cbTaskMeteoriteResearch.TabIndex = 136;
             this.cbTaskMeteoriteResearch.Text = "Meteorite Research";
             this.cbTaskMeteoriteResearch.UseVisualStyleBackColor = true;
             // 
+            // cbTaskDailyMissions
+            // 
+            this.cbTaskDailyMissions.AutoSize = true;
+            this.cbTaskDailyMissions.Checked = true;
+            this.cbTaskDailyMissions.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbTaskDailyMissions.Location = new System.Drawing.Point(955, 574);
+            this.cbTaskDailyMissions.Name = "cbTaskDailyMissions";
+            this.cbTaskDailyMissions.Size = new System.Drawing.Size(92, 17);
+            this.cbTaskDailyMissions.TabIndex = 137;
+            this.cbTaskDailyMissions.Text = "Daily Missions";
+            this.cbTaskDailyMissions.UseVisualStyleBackColor = true;
+            // 
+            // cbTaskCampaignLoot
+            // 
+            this.cbTaskCampaignLoot.AutoSize = true;
+            this.cbTaskCampaignLoot.Checked = true;
+            this.cbTaskCampaignLoot.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbTaskCampaignLoot.Location = new System.Drawing.Point(955, 597);
+            this.cbTaskCampaignLoot.Name = "cbTaskCampaignLoot";
+            this.cbTaskCampaignLoot.Size = new System.Drawing.Size(97, 17);
+            this.cbTaskCampaignLoot.TabIndex = 138;
+            this.cbTaskCampaignLoot.Text = "Campaign Loot";
+            this.cbTaskCampaignLoot.UseVisualStyleBackColor = true;
+            // 
+            // cbTaskEngineerReward
+            // 
+            this.cbTaskEngineerReward.AutoSize = true;
+            this.cbTaskEngineerReward.Checked = true;
+            this.cbTaskEngineerReward.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbTaskEngineerReward.Location = new System.Drawing.Point(955, 620);
+            this.cbTaskEngineerReward.Name = "cbTaskEngineerReward";
+            this.cbTaskEngineerReward.Size = new System.Drawing.Size(108, 17);
+            this.cbTaskEngineerReward.TabIndex = 139;
+            this.cbTaskEngineerReward.Text = "Engineer Reward";
+            this.cbTaskEngineerReward.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1086, 903);
+            this.ClientSize = new System.Drawing.Size(1096, 903);
+            this.Controls.Add(this.cbTaskEngineerReward);
+            this.Controls.Add(this.cbTaskCampaignLoot);
+            this.Controls.Add(this.cbTaskDailyMissions);
             this.Controls.Add(this.cbTaskMeteoriteResearch);
             this.Controls.Add(this.cbAlchemistExoticCoin);
             this.Controls.Add(this.cbAlchemistStrangeDust);
@@ -1419,6 +1461,9 @@
         private System.Windows.Forms.CheckBox cbAlchemistStrangeDust;
         private System.Windows.Forms.CheckBox cbAlchemistExoticCoin;
         private System.Windows.Forms.CheckBox cbTaskMeteoriteResearch;
+        private System.Windows.Forms.CheckBox cbTaskDailyMissions;
+        private System.Windows.Forms.CheckBox cbTaskCampaignLoot;
+        private System.Windows.Forms.CheckBox cbTaskEngineerReward;
     }
 }
 
