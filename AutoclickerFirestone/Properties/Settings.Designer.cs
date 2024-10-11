@@ -254,12 +254,12 @@ namespace AutoclickerFirestone.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool TaskMapMissions {
+        public bool TaskCampaignMissions {
             get {
-                return ((bool)(this["TaskMapMissions"]));
+                return ((bool)(this["TaskCampaignMissions"]));
             }
             set {
-                this["TaskMapMissions"] = value;
+                this["TaskCampaignMissions"] = value;
             }
         }
         
@@ -326,12 +326,12 @@ namespace AutoclickerFirestone.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool TaskDailyMissions {
+        public bool TaskDailyMissionsLiberations {
             get {
-                return ((bool)(this["TaskDailyMissions"]));
+                return ((bool)(this["TaskDailyMissionsLiberations"]));
             }
             set {
-                this["TaskDailyMissions"] = value;
+                this["TaskDailyMissionsLiberations"] = value;
             }
         }
         
@@ -356,6 +356,18 @@ namespace AutoclickerFirestone.Properties {
             }
             set {
                 this["TaskEngineerReward"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TaskDailyMissionsDungeons {
+            get {
+                return ((bool)(this["TaskDailyMissionsDungeons"]));
+            }
+            set {
+                this["TaskDailyMissionsDungeons"] = value;
             }
         }
     }
