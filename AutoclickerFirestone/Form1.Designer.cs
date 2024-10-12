@@ -136,6 +136,9 @@
             this.cbTaskCampaignLoot = new System.Windows.Forms.CheckBox();
             this.cbTaskEngineerReward = new System.Windows.Forms.CheckBox();
             this.cbTaskDailyMissionsDungeons = new System.Windows.Forms.CheckBox();
+            this.cbTaskQuests = new System.Windows.Forms.CheckBox();
+            this.cbTaskPickaxes = new System.Windows.Forms.CheckBox();
+            this.cbTaskDailyReward = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageStored)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPixelStored)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPixelActual)).BeginInit();
@@ -755,7 +758,7 @@
             this.TextboxStatus.Location = new System.Drawing.Point(556, 723);
             this.TextboxStatus.Name = "TextboxStatus";
             this.TextboxStatus.ReadOnly = true;
-            this.TextboxStatus.Size = new System.Drawing.Size(403, 165);
+            this.TextboxStatus.Size = new System.Drawing.Size(378, 165);
             this.TextboxStatus.TabIndex = 88;
             this.TextboxStatus.Text = "";
             // 
@@ -1097,7 +1100,7 @@
             this.cbTaskAutoclick.AutoSize = true;
             this.cbTaskAutoclick.Checked = true;
             this.cbTaskAutoclick.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskAutoclick.Location = new System.Drawing.Point(955, 666);
+            this.cbTaskAutoclick.Location = new System.Drawing.Point(956, 735);
             this.cbTaskAutoclick.Name = "cbTaskAutoclick";
             this.cbTaskAutoclick.Size = new System.Drawing.Size(70, 17);
             this.cbTaskAutoclick.TabIndex = 131;
@@ -1241,11 +1244,50 @@
             this.cbTaskDailyMissionsDungeons.Text = "Daily Missions Dungeon";
             this.cbTaskDailyMissionsDungeons.UseVisualStyleBackColor = true;
             // 
+            // cbTaskQuests
+            // 
+            this.cbTaskQuests.AutoSize = true;
+            this.cbTaskQuests.Checked = true;
+            this.cbTaskQuests.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbTaskQuests.Location = new System.Drawing.Point(955, 666);
+            this.cbTaskQuests.Name = "cbTaskQuests";
+            this.cbTaskQuests.Size = new System.Drawing.Size(59, 17);
+            this.cbTaskQuests.TabIndex = 141;
+            this.cbTaskQuests.Text = "Quests";
+            this.cbTaskQuests.UseVisualStyleBackColor = true;
+            // 
+            // cbTaskPickaxes
+            // 
+            this.cbTaskPickaxes.AutoSize = true;
+            this.cbTaskPickaxes.Checked = true;
+            this.cbTaskPickaxes.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbTaskPickaxes.Location = new System.Drawing.Point(955, 689);
+            this.cbTaskPickaxes.Name = "cbTaskPickaxes";
+            this.cbTaskPickaxes.Size = new System.Drawing.Size(69, 17);
+            this.cbTaskPickaxes.TabIndex = 142;
+            this.cbTaskPickaxes.Text = "Pickaxes";
+            this.cbTaskPickaxes.UseVisualStyleBackColor = true;
+            // 
+            // cbTaskDailyReward
+            // 
+            this.cbTaskDailyReward.AutoSize = true;
+            this.cbTaskDailyReward.Checked = true;
+            this.cbTaskDailyReward.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbTaskDailyReward.Location = new System.Drawing.Point(956, 712);
+            this.cbTaskDailyReward.Name = "cbTaskDailyReward";
+            this.cbTaskDailyReward.Size = new System.Drawing.Size(89, 17);
+            this.cbTaskDailyReward.TabIndex = 143;
+            this.cbTaskDailyReward.Text = "Daily Reward";
+            this.cbTaskDailyReward.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 903);
+            this.Controls.Add(this.cbTaskDailyReward);
+            this.Controls.Add(this.cbTaskPickaxes);
+            this.Controls.Add(this.cbTaskQuests);
             this.Controls.Add(this.cbTaskDailyMissionsDungeons);
             this.Controls.Add(this.cbTaskEngineerReward);
             this.Controls.Add(this.cbTaskCampaignLoot);
@@ -1479,6 +1521,9 @@
         private System.Windows.Forms.CheckBox cbTaskCampaignLoot;
         private System.Windows.Forms.CheckBox cbTaskEngineerReward;
         private System.Windows.Forms.CheckBox cbTaskDailyMissionsDungeons;
+        private System.Windows.Forms.CheckBox cbTaskQuests;
+        private System.Windows.Forms.CheckBox cbTaskPickaxes;
+        private System.Windows.Forms.CheckBox cbTaskDailyReward;
     }
 }
 

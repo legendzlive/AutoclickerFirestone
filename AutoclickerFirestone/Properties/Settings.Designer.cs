@@ -370,5 +370,41 @@ namespace AutoclickerFirestone.Properties {
                 this["TaskDailyMissionsDungeons"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TaskDailyReward {
+            get {
+                return ((bool)(this["TaskDailyReward"]));
+            }
+            set {
+                this["TaskDailyReward"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TaskQuests {
+            get {
+                return ((bool)(this["TaskQuests"]));
+            }
+            set {
+                this["TaskQuests"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TaskPickaxes {
+            get {
+                return ((bool)(this["TaskPickaxes"]));
+            }
+            set {
+                this["TaskPickaxes"] = value;
+            }
+        }
     }
 }
