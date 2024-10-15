@@ -129,7 +129,7 @@ namespace AutoclickerFirestone
             cbTaskPickaxes.Checked = Properties.Settings.Default.TaskPickaxes;
             cbTaskQuests.Checked = Properties.Settings.Default.TaskQuests;
             cbTaskDailyReward.Checked = Properties.Settings.Default.TaskDailyReward;
-            cbTaskAutoclick.Checked = Properties.Settings.Default.TaskAutoclick;            
+            cbTaskAutoclick.Checked = Properties.Settings.Default.TaskAutoclick;
 
             cbAlchemistDragonBlood.Checked = Properties.Settings.Default.AlchemistDragonBlood;
             cbAlchemistStrangeDust.Checked = Properties.Settings.Default.AlchemistStrangeDust;
@@ -1109,7 +1109,7 @@ namespace AutoclickerFirestone
                 return;
             }
 
-            Logging("Start daily reward.");            
+            Logging("Start daily reward.");
 
             Pixel GemIcon = GetPixelByName("GemIcon");
             AutoClicker.LeftClickAtPosition(GemIcon.Point);
@@ -1119,9 +1119,23 @@ namespace AutoclickerFirestone
             AutoClicker.LeftClickAtPosition(GemTab1.Point);
             MediumSleep();
 
-            Pixel GemFreeMysteryBox = GetPixelByName("GemFreeMysteryBox");
-            AutoClicker.LeftClickAtPosition(GemFreeMysteryBox.Point);
-            MediumSleep();
+            Image MysteryBoxFree = GetImageByName("MysteryBoxFree");
+            Bitmap screenshot = TakeScreenshot(MysteryBoxFree.PointA, MysteryBoxFree.PointB);
+            screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+            string CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+            LongSleep();
+
+            if (CurrentText.ToLower().Trim() == "free")
+            {
+                Pixel GemFreeMysteryBox = GetPixelByName("GemFreeMysteryBox");
+                AutoClicker.LeftClickAtPosition(GemFreeMysteryBox.Point);
+                MediumSleep();
+                Logging("Claimed daily mystery box.");
+            }
+            else
+            {
+                Logging("Daily mystery box already claimed.");
+            }
 
             Pixel GemTab7 = GetPixelByName("GemTab7");
             AutoClicker.LeftClickAtPosition(GemTab7.Point);
@@ -1130,6 +1144,8 @@ namespace AutoclickerFirestone
             Pixel GemCalendarCheckin = GetPixelByName("GemCalendarCheckin");
             AutoClicker.LeftClickAtPosition(GemCalendarCheckin.Point);
             MediumSleep();
+
+            Logging("Claimed daily reward");
 
             AutoClicker.SendKey("Firestone", "{ESC}");
             MediumSleep();
@@ -1149,11 +1165,13 @@ namespace AutoclickerFirestone
             AutoClicker.LeftClickAtPosition(FreeOracleGift.Point);
             MediumSleep();
 
+            Logging("Claimed daily oracle gift.");
+
             AutoClicker.SendKey("Firestone", "{ESC}");
             AutoClicker.SendKey("Firestone", "{ESC}");
             MediumSleep();
 
-            Logging("Finished daily reward.");
+            Logging("Finished all daily rewards.");
         }
 
         private void Pickaxes()
@@ -1182,7 +1200,7 @@ namespace AutoclickerFirestone
 
             Pixel GuildSelectFreePickaxes = GetPixelByName("GuildSelectFreePickaxes");
             AutoClicker.LeftClickAtPosition(GuildSelectFreePickaxes.Point);
-            MediumSleep();            
+            MediumSleep();
 
             AutoClicker.SendKey("Firestone", "{ESC}");
             AutoClicker.SendKey("Firestone", "{ESC}");
@@ -1230,7 +1248,7 @@ namespace AutoclickerFirestone
                 ShortSleep();
             }
 
-            MediumSleep();            
+            MediumSleep();
 
             Logging("Finished quests");
 
@@ -2929,7 +2947,7 @@ namespace AutoclickerFirestone
             Properties.Settings.Default.TaskPickaxes = cbTaskPickaxes.Checked;
             Properties.Settings.Default.TaskQuests = cbTaskQuests.Checked;
             Properties.Settings.Default.TaskDailyReward = cbTaskDailyReward.Checked;
-            Properties.Settings.Default.TaskAutoclick = cbTaskAutoclick.Checked;            
+            Properties.Settings.Default.TaskAutoclick = cbTaskAutoclick.Checked;
 
             Properties.Settings.Default.AlchemistDragonBlood = cbAlchemistDragonBlood.Checked;
             Properties.Settings.Default.AlchemistStrangeDust = cbAlchemistStrangeDust.Checked;
