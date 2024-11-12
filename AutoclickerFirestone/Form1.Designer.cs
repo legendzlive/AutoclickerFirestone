@@ -139,6 +139,7 @@
             this.cbTaskQuests = new System.Windows.Forms.CheckBox();
             this.cbTaskPickaxes = new System.Windows.Forms.CheckBox();
             this.cbTaskDailyReward = new System.Windows.Forms.CheckBox();
+            this.btnTestSearchMission = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbImageStored)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPixelStored)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPixelActual)).BeginInit();
@@ -1280,11 +1281,22 @@
             this.cbTaskDailyReward.Text = "Daily Reward";
             this.cbTaskDailyReward.UseVisualStyleBackColor = true;
             // 
+            // btnTestSearchMission
+            // 
+            this.btnTestSearchMission.Location = new System.Drawing.Point(759, 390);
+            this.btnTestSearchMission.Name = "btnTestSearchMission";
+            this.btnTestSearchMission.Size = new System.Drawing.Size(141, 23);
+            this.btnTestSearchMission.TabIndex = 144;
+            this.btnTestSearchMission.Text = "Test Search Mission";
+            this.btnTestSearchMission.UseVisualStyleBackColor = true;
+            this.btnTestSearchMission.Click += new System.EventHandler(this.btnTestSearchMission_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 903);
+            this.Controls.Add(this.btnTestSearchMission);
             this.Controls.Add(this.cbTaskDailyReward);
             this.Controls.Add(this.cbTaskPickaxes);
             this.Controls.Add(this.cbTaskQuests);
@@ -1524,6 +1536,7 @@
         private System.Windows.Forms.CheckBox cbTaskQuests;
         private System.Windows.Forms.CheckBox cbTaskPickaxes;
         private System.Windows.Forms.CheckBox cbTaskDailyReward;
+        private System.Windows.Forms.Button btnTestSearchMission;
     }
 }
 
