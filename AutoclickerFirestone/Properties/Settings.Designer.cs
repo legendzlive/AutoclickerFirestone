@@ -254,12 +254,12 @@ namespace AutoclickerFirestone.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool TaskCampaignMissions {
+        public bool TaskMapMissions {
             get {
-                return ((bool)(this["TaskCampaignMissions"]));
+                return ((bool)(this["TaskMapMissions"]));
             }
             set {
-                this["TaskCampaignMissions"] = value;
+                this["TaskMapMissions"] = value;
             }
         }
         

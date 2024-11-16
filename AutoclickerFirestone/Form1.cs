@@ -55,7 +55,6 @@ namespace AutoclickerFirestone
 
             new ToolTip().SetToolTip(ButtonTestResearchScroll, "Make sure you are inside the firestone research screen before pressing the button.");
             new ToolTip().SetToolTip(ButtonTestMapScroll, "Make sure you are inside the map mission screen before pressing the button.");
-            new ToolTip().SetToolTip(ButtonTestDailyMissions, "Make sure you are on the default (combat) screen when testing. This function is still in development. It automatically completes the daily map missions. Will be added to regular flow eventually.");
 
             new ToolTip().SetToolTip(LabelCurrentStage, "Displays the current stage and the maximum stage. (refreshes regularly)");
 
@@ -121,7 +120,7 @@ namespace AutoclickerFirestone
             cbTaskFirestoneResearch.Checked = Properties.Settings.Default.TaskFirestoneResearch;
             cbTaskMeteoriteResearch.Checked = Properties.Settings.Default.TaskMeteoriteResearch;
             cbTaskTrainGuardian.Checked = Properties.Settings.Default.TaskTrainGuardian;
-            cbTaskCampaignMissions.Checked = Properties.Settings.Default.TaskCampaignMissions;
+            cbTaskMapMissions.Checked = Properties.Settings.Default.TaskMapMissions;
             cbTaskDailyMissionsLiberations.Checked = Properties.Settings.Default.TaskDailyMissionsLiberations;
             cbTaskDailyMissionsDungeons.Checked = Properties.Settings.Default.TaskDailyMissionsDungeons;
             cbTaskCampaignLoot.Checked = Properties.Settings.Default.TaskCampaignLoot;
@@ -1087,7 +1086,7 @@ namespace AutoclickerFirestone
                 TrainGuardian();
                 EngineerReward();
                 CampaignLoot();
-                CampaignMissions();
+                MapMissions();
                 DailyMissionsLiberations();
                 DailyMissionsDungeons();
                 Quests();
@@ -1405,7 +1404,7 @@ namespace AutoclickerFirestone
                 cbTaskTrainGuardian.Checked == false &&
                 cbTaskEngineerReward.Checked == false &&
                 cbTaskCampaignLoot.Checked == false &&
-                cbTaskCampaignMissions.Checked == false &&
+                cbTaskMapMissions.Checked == false &&
                 cbTaskDailyMissionsDungeons.Checked == false &&
                 cbTaskDailyMissionsLiberations.Checked == false &&
                 cbTaskQuests.Checked == false &&
@@ -1508,9 +1507,9 @@ namespace AutoclickerFirestone
             Logging("Finished guardian training");
         }
 
-        private void CampaignMissions(Boolean searchAlways = false)
+        private void MapMissions(Boolean debug = false)
         {
-            if (cbTaskCampaignMissions.Checked == false)
+            if (cbTaskMapMissions.Checked == false && debug == false)
             {
                 return;
             }
@@ -1529,7 +1528,7 @@ namespace AutoclickerFirestone
 
             Logging("Start claiming process.");
             int missionsClaimed = 0;
-            while (screenshotText == "claim" && searchAlways == false)
+            while (screenshotText == "claim" && debug == false)
             {
                 Pixel pixelMissionClaim = GetPixelByName("MissionClaim");
                 AutoClicker.LeftClickAtPosition(pixelMissionClaim.Point);
@@ -1553,7 +1552,7 @@ namespace AutoclickerFirestone
                     break;
                 }
             }
-            if (missionsClaimed == 0)
+            if (missionsClaimed == 0 && debug == false)
             {
                 Logging("There was nothing to claim.");
             }
@@ -1568,7 +1567,7 @@ namespace AutoclickerFirestone
             screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
             string imageCurrentPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png");
             string text = GetTextRt(imageCurrentPath);
-            if (text != "your squads are idling! start a new mission" && searchAlways == false)
+            if (text != "your squads are idling! start a new mission" && debug == false)
             {
                 Logging("Your squads are not idling.");
                 Logging("Finished map missions.");
@@ -1592,86 +1591,126 @@ namespace AutoclickerFirestone
             string mapPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP.png";
             string mapPathWithMarkers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
 
-            // ScoutMissions
-            string targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_SCOUT.png";
+            // NavalMissions
+            int countNavalMissions = 0;
+            string targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_NAVAL.png";
             List<OpenCvSharp.Point> coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            Mat mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
+            Mat mapImage = new Mat(mapPath, ImreadModes.Color);
             foreach (OpenCvSharp.Point point in coordinates)
             {
                 if (point.X < 90) continue;
+                countNavalMissions++;
                 Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
                 AllCoordinates.Add(point);
             }
             string resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            mapImage.SaveImage(resultPath);
-
-            // WarMissions
-            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_WAR.png";
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
-            foreach (OpenCvSharp.Point point in coordinates)
+            //mapImage.SaveImage(resultPath);
+            if (debug)
             {
-                if (point.X < 90) continue;
-                Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
-                AllCoordinates.Add(point);
+                Logging(countNavalMissions + " Naval missions found.");
             }
-            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            mapImage.SaveImage(resultPath);
-
-            // AdventureMissions
-            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_ADVENTURE.png";
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
-            foreach (OpenCvSharp.Point point in coordinates)
-            {
-                if (point.X < 90) continue;
-                Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
-                AllCoordinates.Add(point);
-            }
-            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            mapImage.SaveImage(resultPath);
-
-            // NavalMissions
-            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_NAVAL.png";
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
-            foreach (OpenCvSharp.Point point in coordinates)
-            {
-                if (point.X < 90) continue;
-                Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
-                AllCoordinates.Add(point);
-            }
-            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            mapImage.SaveImage(resultPath);
 
             // MonsterMissions
+            int countMonsterMissions = 0;
             targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_MONSTER.png";
             coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
             mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
             foreach (OpenCvSharp.Point point in coordinates)
             {
                 if (point.X < 90) continue;
+                countMonsterMissions++;
                 Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
                 AllCoordinates.Add(point);
             }
             resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
             mapImage.SaveImage(resultPath);
+            if (debug)
+            {
+                Logging(countMonsterMissions + " Monster missions found.");
+            }
+
+            // WarMissions
+            int countWarMissions = 0;
+            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_WAR.png";
+            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
+            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
+            foreach (OpenCvSharp.Point point in coordinates)
+            {
+                if (point.X < 90) continue;
+                countWarMissions++;
+                Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
+                AllCoordinates.Add(point);
+            }
+            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
+            mapImage.SaveImage(resultPath);
+            if (debug)
+            {
+                Logging(countWarMissions + " War missions found.");
+            }
+
+            // ScoutMissions
+            int countScoutMissions = 0;
+            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_SCOUT.png";
+            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
+            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
+            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
+            foreach (OpenCvSharp.Point point in coordinates)
+            {
+                if (point.X < 90) continue;
+                countScoutMissions++;
+                Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
+                AllCoordinates.Add(point);
+            }
+            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
+            mapImage.SaveImage(resultPath);
+            if (debug)
+            {
+                Logging(countScoutMissions + " Scout missions found.");
+            }
+
+            // AdventureMissions
+            int countAdventureMissions = 0;
+            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_ADVENTURE.png";
+            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
+            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
+            foreach (OpenCvSharp.Point point in coordinates)
+            {
+                if (point.X < 90) continue;
+                countAdventureMissions++;
+                Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
+                AllCoordinates.Add(point);
+            }
+            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
+            mapImage.SaveImage(resultPath);
+            if (debug)
+            {
+                Logging(countAdventureMissions + " Adventure missions found.");
+            }
 
             // DragonMissions
+            int countDragonMissions = 0;
             targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_DRAGON.png";
             coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
             mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
             foreach (OpenCvSharp.Point point in coordinates)
             {
                 if (point.X < 90) continue;
+                countDragonMissions++;
                 Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
                 AllCoordinates.Add(point);
             }
             resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
             mapImage.SaveImage(resultPath);
+            if (debug)
+            {
+                Logging(countDragonMissions + " Dragon missions found.");
+            }
 
             int coordinateCount = 0;
+            if (debug)
+            {
+                AllCoordinates.Clear();
+            }
             foreach (OpenCvSharp.Point point in AllCoordinates)
             {
                 AutoClicker.LeftClickAtPosition(new System.Drawing.Point(point.X, point.Y));
@@ -1719,22 +1758,7 @@ namespace AutoclickerFirestone
             AutoClicker.LeftClickAtPosition(ResearchesFirestone.Point);
             ShortSleep();
 
-            Pixel FirestoneResearchCenter = GetPixelByName("FirestoneResearchCenter");
-            AutoClicker.LeftClickAtPosition(FirestoneResearchCenter.Point);
-
-            int direction = -1;
-            if (cbScrollLeft1.Checked) { direction = 1; }
-
-            AutoClicker.ScrollMouseWheel(FirestoneResearchCenter.Point, direction, int.Parse(TextResearchScroll1.Text));
-
-            MediumSleep();
-
-            direction = -1;
-            if (cbScrollLeft2.Checked) { direction = 1; }
-
-            AutoClicker.ScrollMouseWheel(FirestoneResearchCenter.Point, direction, int.Parse(TextResearchScroll2.Text));
-
-            MediumSleep();
+            ResearchScroll();
 
             Image myImg = GetImageByName("FirestoneClaim2");
             Bitmap screenshot = TakeScreenshot(myImg.PointA, myImg.PointB);
@@ -1821,6 +1845,26 @@ namespace AutoclickerFirestone
             AutoClicker.SendKey("Firestone", "{ESC}");
             MediumSleep();
             Logging("Finished firestone research.");
+        }
+
+        private void ResearchScroll()
+        {
+            Pixel FirestoneResearchCenter = GetPixelByName("FirestoneResearchCenter");
+            AutoClicker.LeftClickAtPosition(FirestoneResearchCenter.Point);
+
+            int direction = -1;
+            if (cbScrollLeft1.Checked) { direction = 1; }
+
+            AutoClicker.ScrollMouseWheel(FirestoneResearchCenter.Point, direction, int.Parse(TextResearchScroll1.Text));
+
+            MediumSleep();
+
+            direction = -1;
+            if (cbScrollLeft2.Checked) { direction = 1; }
+
+            AutoClicker.ScrollMouseWheel(FirestoneResearchCenter.Point, direction, int.Parse(TextResearchScroll2.Text));
+
+            MediumSleep();
         }
 
         private void Alchemist()
@@ -2584,36 +2628,41 @@ namespace AutoclickerFirestone
 
         private void ButtonTestScroll_Click(object sender, EventArgs e)
         {
-            SetOffset();
-
-            Pixel FirestoneResearchCenter = GetPixelByName("FirestoneResearchCenter");
-            AutoClicker.LeftClickAtPosition(FirestoneResearchCenter.Point);
-
-            int direction = -1;
-            if (cbScrollLeft1.Checked) { direction = 1; }
-
-            AutoClicker.ScrollMouseWheel(FirestoneResearchCenter.Point, direction, int.Parse(TextResearchScroll1.Text));
-
-            MediumSleep();
-
-            direction = -1;
-            if (cbScrollLeft2.Checked) { direction = 1; }
-
-            AutoClicker.ScrollMouseWheel(FirestoneResearchCenter.Point, direction, int.Parse(TextResearchScroll2.Text));
-
-            MediumSleep();
+            try
+            {
+                SetOffset();
+                ResearchScroll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void ButtonTestMapScroll_Click(object sender, EventArgs e)
         {
-            SetOffset();
-            CenterMap();
+            try
+            {
+                SetOffset();
+                CenterMap();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void ButtonTestMission_Click(object sender, EventArgs e)
         {
-            SetOffset();
-            DailyMissionsLiberations();
+            try
+            {
+                SetOffset();
+                DailyMissionsLiberations();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void DailyMissionsLiberations()
@@ -2939,7 +2988,7 @@ namespace AutoclickerFirestone
             Properties.Settings.Default.TaskFirestoneResearch = cbTaskFirestoneResearch.Checked;
             Properties.Settings.Default.TaskMeteoriteResearch = cbTaskMeteoriteResearch.Checked;
             Properties.Settings.Default.TaskTrainGuardian = cbTaskTrainGuardian.Checked;
-            Properties.Settings.Default.TaskCampaignMissions = cbTaskCampaignMissions.Checked;
+            Properties.Settings.Default.TaskMapMissions = cbTaskMapMissions.Checked;
             Properties.Settings.Default.TaskDailyMissionsLiberations = cbTaskDailyMissionsLiberations.Checked;
             Properties.Settings.Default.TaskDailyMissionsDungeons = cbTaskDailyMissionsDungeons.Checked;
             Properties.Settings.Default.TaskCampaignLoot = cbTaskCampaignLoot.Checked;
@@ -3030,205 +3079,15 @@ namespace AutoclickerFirestone
 
         private void btnTestSearchMission_Click(object sender, EventArgs e)
         {
-            SetOffset();
-            //if (cbTaskCampaignMissions.Checked == false)
-            //{
-            //    return;
-            //}
-
-            //Logging("Start map missions");
-            //AutoClicker.SendKey("Firestone", "{M}");
-            //MediumSleep();
-
-            int totalSquads = 2;
-
-            //Image MissionClaim = GetImageByName("MissionClaim");
-            //Bitmap screenshotMissionClaim = TakeScreenshot(MissionClaim.PointA, MissionClaim.PointB);
-            //screenshotMissionClaim.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
-            //string screenshotImageCurrentPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png");
-            //string screenshotText = GetTextRt(screenshotImageCurrentPath);
-
-            //Logging("Start claiming process.");
-            //int missionsClaimed = 0;
-            //while (screenshotText == "claim")
-            //{
-            //    Pixel pixelMissionClaim = GetPixelByName("MissionClaim");
-            //    AutoClicker.LeftClickAtPosition(pixelMissionClaim.Point);
-            //    MediumSleep();
-
-            //    Pixel MissionClaimRewards = GetPixelByName("MissionClaimRewards");
-            //    AutoClicker.LeftClickAtPosition(MissionClaimRewards.Point);
-            //    MediumSleep();
-
-            //    missionsClaimed++;
-
-            //    screenshotMissionClaim = TakeScreenshot(MissionClaim.PointA, MissionClaim.PointB);
-            //    screenshotMissionClaim.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
-            //    screenshotImageCurrentPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png");
-            //    screenshotText = GetTextRt(screenshotImageCurrentPath);
-
-            //    // +2 Accounts for potential error/misclick during claiming phase
-            //    if (missionsClaimed > (totalSquads + 2))
-            //    {
-            //        Logging("The claim mission loop seems to be stuck, breaking out of while loop forcefully.");
-            //        break;
-            //    }
-            //}
-            //if (missionsClaimed == 0)
-            //{
-            //    Logging("There was nothing to claim.");
-            //}
-            //else
-            //{
-            //    Logging("Claiming process finished.");
-            //}
-
-            //Logging("Check for idling squads..");
-            Image squadIdling = GetImageByName("SquadIdling");
-            Bitmap screenshot = TakeScreenshot(squadIdling.PointA, squadIdling.PointB);
-            screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
-            string imageCurrentPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png");
-            string text = GetTextRt(imageCurrentPath);
-            //if (text != "your squads are idling! start a new mission")
-            //{
-            //    Logging("Your squads are not idling.");
-            //    Logging("Finished map missions.");
-            //    AutoClicker.SendKey("Firestone", "{ESC}");
-            //    return;
-            //}
-            //Logging("Idling squads found.");
-            Logging("Centering map.");
-            CenterMap();
-            Logging("Map centered.");
-            ShortSleep();
-
-            List<OpenCvSharp.Point> AllCoordinates = new List<OpenCvSharp.Point>();
-
-            Image myImg = GetImageByName("MissionMap");
-            screenshot = TakeScreenshot(myImg.PointA, myImg.PointB);
-            screenshot.Save(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP.png");
-
-            MediumSleep();
-
-            string mapPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP.png";
-            string mapPathWithMarkers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-
-            //// ScoutMissions
-            string targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_SCOUT.png";
-            List<OpenCvSharp.Point> coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            Mat mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
-            MessageBox.Show("ScoutMissions: " + coordinates.Count);
-            //foreach (OpenCvSharp.Point point in coordinates)
-            //{
-            //    if (point.X < 90) continue;
-            //    Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
-            //    AllCoordinates.Add(point);
-            //}
-            string resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            mapImage.SaveImage(resultPath);
-
-            //// WarMissions
-            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_WAR.png";
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
-            MessageBox.Show("WarMissions: " + coordinates.Count);
-            //foreach (OpenCvSharp.Point point in coordinates)
-            //{
-            //    if (point.X < 90) continue;
-            //    Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
-            //    AllCoordinates.Add(point);
-            //}
-            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            mapImage.SaveImage(resultPath);
-
-            //// AdventureMissions
-            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_ADVENTURE.png";
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
-            MessageBox.Show("AdventureMissions: " + coordinates.Count);
-            //foreach (OpenCvSharp.Point point in coordinates)
-            //{
-            //    if (point.X < 90) continue;
-            //    Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
-            //    AllCoordinates.Add(point);
-            //}
-            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            mapImage.SaveImage(resultPath);
-
-            //// NavalMissions
-            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_NAVAL.png";
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
-            MessageBox.Show("NavalMissions: " + coordinates.Count);
-            //foreach (OpenCvSharp.Point point in coordinates)
-            //{
-            //    if (point.X < 90) continue;
-            //    Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
-            //    AllCoordinates.Add(point);
-            //}
-            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            mapImage.SaveImage(resultPath);
-
-            //// MonsterMissions
-            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_MONSTER.png";
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
-            MessageBox.Show("MonsterMissions: " + coordinates.Count);
-            //foreach (OpenCvSharp.Point point in coordinates)
-            //{
-            //    if (point.X < 90) continue;
-            //    Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
-            //    AllCoordinates.Add(point);
-            //}
-            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            mapImage.SaveImage(resultPath);
-
-            // DragonMissions
-            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_DRAGON.png";
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
-            MessageBox.Show("DragonMissions: " + coordinates.Count);
-            //foreach (OpenCvSharp.Point point in coordinates)
-            //{
-            //    if (point.X < 90) continue;
-            //    Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
-            //    AllCoordinates.Add(point);
-            //}
-            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            mapImage.SaveImage(resultPath);
-
-            //int coordinateCount = 0;
-            //foreach (OpenCvSharp.Point point in AllCoordinates)
-            //{
-            //    AutoClicker.LeftClickAtPosition(new System.Drawing.Point(point.X, point.Y));
-            //    MediumSleep();
-
-            //    Image MissionStartButton = GetImageByName("MissionStartButton");
-            //    screenshot = TakeScreenshot(MissionStartButton.PointA, MissionStartButton.PointB);
-            //    screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
-            //    imageCurrentPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png");
-            //    text = GetTextRt(imageCurrentPath);
-            //    if (text == "start mission")
-            //    {
-            //        Pixel StartMissionButton = GetPixelByName("StartMissionButton");
-            //        AutoClicker.LeftClickAtPosition(StartMissionButton.Point);
-            //    }
-            //    else
-            //    {
-            //        AutoClicker.SendKey("Firestone", "{ESC}");
-            //    }
-            //    MediumSleep();
-            //    coordinateCount++;
-            //    if (coordinateCount >= totalSquads)
-            //    {
-            //        break;
-            //    }
-            //}
-
-            AutoClicker.SendKey("Firestone", "{ESC}");
-
-            Logging("Finished map missions");
+            try
+            {
+                SetOffset();
+                MapMissions(true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

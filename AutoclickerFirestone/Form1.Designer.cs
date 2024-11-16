@@ -115,7 +115,6 @@
             this.LabelTrainGuardian = new System.Windows.Forms.Label();
             this.LabelAutoclickDuration = new System.Windows.Forms.Label();
             this.TextAutoclickDuration = new System.Windows.Forms.TextBox();
-            this.ButtonTestDailyMissions = new System.Windows.Forms.Button();
             this.LabelSwitchToPrimaryHeroAfterStage = new System.Windows.Forms.Label();
             this.TextSwitchToPrimaryHeroAfterStage = new System.Windows.Forms.TextBox();
             this.cbTaskUpgradeHeroes = new System.Windows.Forms.CheckBox();
@@ -124,7 +123,7 @@
             this.cbTaskAlchemist = new System.Windows.Forms.CheckBox();
             this.cbTaskGuildExpeditions = new System.Windows.Forms.CheckBox();
             this.cbTaskAutoclick = new System.Windows.Forms.CheckBox();
-            this.cbTaskCampaignMissions = new System.Windows.Forms.CheckBox();
+            this.cbTaskMapMissions = new System.Windows.Forms.CheckBox();
             this.cbTaskTrainGuardian = new System.Windows.Forms.CheckBox();
             this.cbTaskFirestoneResearch = new System.Windows.Forms.CheckBox();
             this.LabelAlchemist = new System.Windows.Forms.Label();
@@ -1011,16 +1010,6 @@
             this.TextAutoclickDuration.TabIndex = 118;
             this.TextAutoclickDuration.Text = "60";
             // 
-            // ButtonTestDailyMissions
-            // 
-            this.ButtonTestDailyMissions.Location = new System.Drawing.Point(759, 416);
-            this.ButtonTestDailyMissions.Name = "ButtonTestDailyMissions";
-            this.ButtonTestDailyMissions.Size = new System.Drawing.Size(141, 23);
-            this.ButtonTestDailyMissions.TabIndex = 120;
-            this.ButtonTestDailyMissions.Text = "Test Daily Missions";
-            this.ButtonTestDailyMissions.UseVisualStyleBackColor = true;
-            this.ButtonTestDailyMissions.Click += new System.EventHandler(this.ButtonTestMission_Click);
-            // 
             // LabelSwitchToPrimaryHeroAfterStage
             // 
             this.LabelSwitchToPrimaryHeroAfterStage.AutoSize = true;
@@ -1108,17 +1097,17 @@
             this.cbTaskAutoclick.Text = "Autoclick";
             this.cbTaskAutoclick.UseVisualStyleBackColor = true;
             // 
-            // cbTaskCampaignMissions
+            // cbTaskMapMissions
             // 
-            this.cbTaskCampaignMissions.AutoSize = true;
-            this.cbTaskCampaignMissions.Checked = true;
-            this.cbTaskCampaignMissions.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTaskCampaignMissions.Location = new System.Drawing.Point(954, 597);
-            this.cbTaskCampaignMissions.Name = "cbTaskCampaignMissions";
-            this.cbTaskCampaignMissions.Size = new System.Drawing.Size(116, 17);
-            this.cbTaskCampaignMissions.TabIndex = 130;
-            this.cbTaskCampaignMissions.Text = "Campaign Missions";
-            this.cbTaskCampaignMissions.UseVisualStyleBackColor = true;
+            this.cbTaskMapMissions.AutoSize = true;
+            this.cbTaskMapMissions.Checked = true;
+            this.cbTaskMapMissions.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbTaskMapMissions.Location = new System.Drawing.Point(954, 597);
+            this.cbTaskMapMissions.Name = "cbTaskMapMissions";
+            this.cbTaskMapMissions.Size = new System.Drawing.Size(90, 17);
+            this.cbTaskMapMissions.TabIndex = 130;
+            this.cbTaskMapMissions.Text = "Map Missions";
+            this.cbTaskMapMissions.UseVisualStyleBackColor = true;
             // 
             // cbTaskTrainGuardian
             // 
@@ -1283,7 +1272,7 @@
             // 
             // btnTestSearchMission
             // 
-            this.btnTestSearchMission.Location = new System.Drawing.Point(759, 390);
+            this.btnTestSearchMission.Location = new System.Drawing.Point(759, 413);
             this.btnTestSearchMission.Name = "btnTestSearchMission";
             this.btnTestSearchMission.Size = new System.Drawing.Size(141, 23);
             this.btnTestSearchMission.TabIndex = 144;
@@ -1310,7 +1299,7 @@
             this.Controls.Add(this.cbAlchemistDragonBlood);
             this.Controls.Add(this.LabelAlchemist);
             this.Controls.Add(this.cbTaskAutoclick);
-            this.Controls.Add(this.cbTaskCampaignMissions);
+            this.Controls.Add(this.cbTaskMapMissions);
             this.Controls.Add(this.cbTaskTrainGuardian);
             this.Controls.Add(this.cbTaskFirestoneResearch);
             this.Controls.Add(this.cbTaskAlchemist);
@@ -1320,7 +1309,6 @@
             this.Controls.Add(this.cbTaskUpgradeHeroes);
             this.Controls.Add(this.LabelSwitchToPrimaryHeroAfterStage);
             this.Controls.Add(this.TextSwitchToPrimaryHeroAfterStage);
-            this.Controls.Add(this.ButtonTestDailyMissions);
             this.Controls.Add(this.LabelAutoclickDuration);
             this.Controls.Add(this.TextAutoclickDuration);
             this.Controls.Add(this.LabelTrainGuardian);
@@ -1512,7 +1500,6 @@
         private System.Windows.Forms.Label LabelTrainGuardian;
         private System.Windows.Forms.Label LabelAutoclickDuration;
         private System.Windows.Forms.TextBox TextAutoclickDuration;
-        private System.Windows.Forms.Button ButtonTestDailyMissions;
         private System.Windows.Forms.Label LabelSwitchToPrimaryHeroAfterStage;
         private System.Windows.Forms.TextBox TextSwitchToPrimaryHeroAfterStage;
         private System.Windows.Forms.CheckBox cbTaskUpgradeHeroes;
@@ -1521,7 +1508,7 @@
         private System.Windows.Forms.CheckBox cbTaskAlchemist;
         private System.Windows.Forms.CheckBox cbTaskGuildExpeditions;
         private System.Windows.Forms.CheckBox cbTaskAutoclick;
-        private System.Windows.Forms.CheckBox cbTaskCampaignMissions;
+        private System.Windows.Forms.CheckBox cbTaskMapMissions;
         private System.Windows.Forms.CheckBox cbTaskTrainGuardian;
         private System.Windows.Forms.CheckBox cbTaskFirestoneResearch;
         private System.Windows.Forms.Label LabelAlchemist;
