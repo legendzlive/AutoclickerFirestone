@@ -551,6 +551,13 @@ namespace AutoclickerFirestone
 
                     GetText(LabelImageTextStored, imageStoredPath);
                     GetText(LabelImageTextCurrent, imageCurrentPath);
+
+                    ToolTip toolTip = new ToolTip();
+                    toolTip.SetToolTip(LabelImagePath, LabelImagePath.Text);  // Show the full text on hover
+
+                    toolTip.InitialDelay = 100;  // Delay before the tooltip shows (in milliseconds)
+                    toolTip.ReshowDelay = 100;   // Delay between subsequent tooltips
+                    toolTip.AutoPopDelay = 30000; // Tooltip stays for 30 seconds
                 }
             }
             catch (Exception err)
@@ -1046,6 +1053,10 @@ namespace AutoclickerFirestone
             ShortSleep();
             AutoClicker.DragMouse(startDrag.Point, endDrag.Point);
             ShortSleep();
+            AutoClicker.DragMouse(startDrag.Point, endDrag.Point);
+            ShortSleep();
+            AutoClicker.DragMouse(startDrag.Point, endDrag.Point);
+            ShortSleep();
 
             Pixel Drag1A = GetPixelByName("A_MapDragStart");
             Pixel Drag1B = GetPixelByName("A_MapDragEnd");
@@ -1096,6 +1107,7 @@ namespace AutoclickerFirestone
 
                 if (cbTaskAutoclick.Checked)
                 {
+                    GoToMainScreen();
                     await RunAutoclickerAsync(int.Parse(TextAutoclickDuration.Text));
                 }
             }
@@ -1165,10 +1177,10 @@ namespace AutoclickerFirestone
             MediumSleep();
 
             Logging("Claimed daily oracle gift.");
-
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            AutoClicker.SendKey("Firestone", "{ESC}");
+            
             MediumSleep();
+
+            GoToMainScreen();
 
             Logging("Finished all daily rewards.");
         }
@@ -1201,10 +1213,7 @@ namespace AutoclickerFirestone
             AutoClicker.LeftClickAtPosition(GuildSelectFreePickaxes.Point);
             MediumSleep();
 
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            AutoClicker.SendKey("Firestone", "{ESC}");
+            GoToMainScreen();
 
             Logging("Finished pickaxes.");
         }
@@ -1249,10 +1258,9 @@ namespace AutoclickerFirestone
 
             MediumSleep();
 
-            Logging("Finished quests");
+            GoToMainScreen();
 
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            MediumSleep();
+            Logging("Finished quests");            
         }
 
         private void DailyMissionsDungeons()
@@ -1351,13 +1359,9 @@ namespace AutoclickerFirestone
             }
             MediumSleep();
 
+            GoToMainScreen();
+
             Logging("Finished daily dungeons");
-
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            MediumSleep();
-
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            MediumSleep();
         }
 
         private void MeteoriteResearch()
@@ -1381,10 +1385,7 @@ namespace AutoclickerFirestone
 
             Pixel MeteoriteResearchButton = GetPixelByName("MeteoriteResearchButton");
             AutoClicker.LeftClickAtPosition(MeteoriteResearchButton.Point);
-            MediumSleep();
-
-            //AutoClicker.SendKey("Firestone", "{ESC}");
-            //AutoClicker.SendKey("Firestone", "{ESC}");
+            MediumSleep();           
 
             GoToMainScreen();
 
@@ -1503,7 +1504,8 @@ namespace AutoclickerFirestone
                 ShortSleep();
             }
 
-            AutoClicker.SendKey("Firestone", "{ESC}");
+            GoToMainScreen();
+
             Logging("Finished guardian training");
         }
 
@@ -1590,6 +1592,9 @@ namespace AutoclickerFirestone
 
             string mapPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP.png";
             string mapPathWithMarkers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
+            File.Copy(mapPath, mapPathWithMarkers, true);
+
+            int marginX = 1800;
 
             // NavalMissions
             int countNavalMissions = 0;
@@ -1598,17 +1603,14 @@ namespace AutoclickerFirestone
             Mat mapImage = new Mat(mapPath, ImreadModes.Color);
             foreach (OpenCvSharp.Point point in coordinates)
             {
-                if (point.X < 90) continue;
+                if (point.X < marginX) continue;
                 countNavalMissions++;
                 Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
                 AllCoordinates.Add(point);
             }
             string resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
-            //mapImage.SaveImage(resultPath);
-            if (debug)
-            {
-                Logging(countNavalMissions + " Naval missions found.");
-            }
+            mapImage.SaveImage(resultPath);
+            Logging(countNavalMissions + " Naval missions found.");
 
             // MonsterMissions
             int countMonsterMissions = 0;
@@ -1617,17 +1619,32 @@ namespace AutoclickerFirestone
             mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
             foreach (OpenCvSharp.Point point in coordinates)
             {
-                if (point.X < 90) continue;
+                if (point.X < marginX) continue;
                 countMonsterMissions++;
                 Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
                 AllCoordinates.Add(point);
             }
             resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
             mapImage.SaveImage(resultPath);
-            if (debug)
+            Logging(countMonsterMissions + " Monster missions found.");
+
+
+            // MysteryGifts
+            int countMysteryGifts = 0;
+            targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_MYSTERYGIFT.png";
+            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
+            mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
+            foreach (OpenCvSharp.Point point in coordinates)
             {
-                Logging(countMonsterMissions + " Monster missions found.");
+                if (point.X < marginX) continue;
+                countMysteryGifts++;
+                Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
+                AllCoordinates.Add(point);
             }
+            resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
+            mapImage.SaveImage(resultPath);
+            Logging(countMysteryGifts + " Mystery Gifts found.");
+
 
             // WarMissions
             int countWarMissions = 0;
@@ -1636,37 +1653,32 @@ namespace AutoclickerFirestone
             mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
             foreach (OpenCvSharp.Point point in coordinates)
             {
-                if (point.X < 90) continue;
+                if (point.X < marginX) continue;
                 countWarMissions++;
                 Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
                 AllCoordinates.Add(point);
             }
             resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
             mapImage.SaveImage(resultPath);
-            if (debug)
-            {
-                Logging(countWarMissions + " War missions found.");
-            }
+
+            Logging(countWarMissions + " War missions found.");
 
             // ScoutMissions
             int countScoutMissions = 0;
             targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/TARGET_SCOUT.png";
             coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
-            coordinates = FindTargetInMap(mapPath, targetPath, 0.76);
             mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
             foreach (OpenCvSharp.Point point in coordinates)
             {
-                if (point.X < 90) continue;
+                if (point.X < marginX) continue;
                 countScoutMissions++;
                 Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
                 AllCoordinates.Add(point);
             }
             resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
             mapImage.SaveImage(resultPath);
-            if (debug)
-            {
-                Logging(countScoutMissions + " Scout missions found.");
-            }
+            Logging(countScoutMissions + " Scout missions found.");
+
 
             // AdventureMissions
             int countAdventureMissions = 0;
@@ -1675,17 +1687,14 @@ namespace AutoclickerFirestone
             mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
             foreach (OpenCvSharp.Point point in coordinates)
             {
-                if (point.X < 90) continue;
+                if (point.X < marginX) continue;
                 countAdventureMissions++;
                 Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
                 AllCoordinates.Add(point);
             }
             resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
             mapImage.SaveImage(resultPath);
-            if (debug)
-            {
-                Logging(countAdventureMissions + " Adventure missions found.");
-            }
+            Logging(countAdventureMissions + " Adventure missions found.");
 
             // DragonMissions
             int countDragonMissions = 0;
@@ -1694,17 +1703,15 @@ namespace AutoclickerFirestone
             mapImage = new Mat(mapPathWithMarkers, ImreadModes.Color);
             foreach (OpenCvSharp.Point point in coordinates)
             {
-                if (point.X < 90) continue;
+                if (point.X < marginX) continue;
                 countDragonMissions++;
                 Cv2.Rectangle(mapImage, new OpenCvSharp.Rect(point.X, point.Y, 10, 10), new Scalar(0, 0, 0), -1); // Fill rectangle
                 AllCoordinates.Add(point);
             }
             resultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "missions") + "/MAP_with_markers.png";
             mapImage.SaveImage(resultPath);
-            if (debug)
-            {
-                Logging(countDragonMissions + " Dragon missions found.");
-            }
+            Logging(countDragonMissions + " Dragon missions found.");
+
 
             int coordinateCount = 0;
             if (debug)
@@ -1738,7 +1745,7 @@ namespace AutoclickerFirestone
                 }
             }
 
-            AutoClicker.SendKey("Firestone", "{ESC}");
+            GoToMainScreen();
 
             Logging("Finished map missions");
         }
@@ -1841,9 +1848,10 @@ namespace AutoclickerFirestone
                 }
                 MediumSleep();
             }
-
-            AutoClicker.SendKey("Firestone", "{ESC}");
+            
             MediumSleep();
+
+            GoToMainScreen();
             Logging("Finished firestone research.");
         }
 
@@ -1944,7 +1952,8 @@ namespace AutoclickerFirestone
                 }
             }
 
-            AutoClicker.SendKey("Firestone", "{ESC}");
+            GoToMainScreen();
+
             Logging("Finished alchemist.");
         }
 
@@ -1975,9 +1984,7 @@ namespace AutoclickerFirestone
             AutoClicker.LeftClickAtPosition(exOne.Point);
             MediumSleep();
 
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            AutoClicker.SendKey("Firestone", "{ESC}");
+            GoToMainScreen();
 
             Logging("Finished guild expeditions.");
         }
@@ -2019,10 +2026,10 @@ namespace AutoclickerFirestone
             AutoClicker.LeftClickAtPosition(OracleConcentration.Point);
             ShortSleep();
 
+            GoToMainScreen();
+
             Logging("Finished oracle rituals.");
             MediumSleep();
-
-            AutoClicker.SendKey("Firestone", "{ESC}");
         }
 
         private void GetGameInfo()
@@ -2078,11 +2085,14 @@ namespace AutoclickerFirestone
 
             TextCurrentStage.Text = text;
             TextCurrentStage.Refresh();
+
             Logging("Updated current stage.");
         }
 
         private Task RunAutoclickerAsync(int seconds)
         {
+
+
             Pixel myPixel = GetPixelByName("IdleMouseLocation");
             AutoClicker.LeftClickAtPosition(myPixel.Point);
             myAutoClicker.StartClicking("Firestone");
@@ -2832,7 +2842,7 @@ namespace AutoclickerFirestone
             CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
             if (CurrentText.ToLower().Trim() == "liberate")
             {
-                Console.WriteLine("Mission4 needs to be done");
+                Console.WriteLine("Mission5 needs to be done");
 
                 Pixel Liberate5 = GetPixelByName("Liberate5");
                 AutoClicker.LeftClickAtPosition(Liberate5.Point);
@@ -2861,7 +2871,7 @@ namespace AutoclickerFirestone
             CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
             if (CurrentText.ToLower().Trim() == "liberate")
             {
-                Console.WriteLine("Mission4 needs to be done");
+                Console.WriteLine("Mission6 needs to be done");
 
                 Pixel Liberate6 = GetPixelByName("Liberate6");
                 AutoClicker.LeftClickAtPosition(Liberate6.Point);
@@ -2890,7 +2900,7 @@ namespace AutoclickerFirestone
             CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
             if (CurrentText.ToLower().Trim() == "liberate")
             {
-                Console.WriteLine("Mission4 needs to be done");
+                Console.WriteLine("Mission7 needs to be done");
 
                 Pixel Liberate7 = GetPixelByName("Liberate7");
                 AutoClicker.LeftClickAtPosition(Liberate7.Point);
@@ -2919,7 +2929,7 @@ namespace AutoclickerFirestone
             CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
             if (CurrentText.ToLower().Trim() == "liberate")
             {
-                Console.WriteLine("Mission4 needs to be done");
+                Console.WriteLine("Mission8 needs to be done");
 
                 Pixel Liberate8 = GetPixelByName("Liberate8");
                 AutoClicker.LeftClickAtPosition(Liberate8.Point);
@@ -2941,17 +2951,44 @@ namespace AutoclickerFirestone
             }
             MediumSleep();
 
-            // Show the final mission (9)
-            //direction = -1;
-            //AutoClicker.ScrollMouseWheel(MissionsMenuCenter.Point, direction, 48);
+            // Show next 2 daily missions
+            direction = -1;
+            AutoClicker.ScrollMouseWheel(MissionsMenuCenter.Point, direction, 22);
+
+            MediumSleep();
+
+            // Check if mission 9 is available
+            Liberate = GetImageByName("Liberate9");
+            screenshot = TakeScreenshot(Liberate.PointA, Liberate.PointB);
+            screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+            CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+            if (CurrentText.ToLower().Trim() == "liberate")
+            {
+                Console.WriteLine("Mission9 needs to be done");
+
+                Pixel Liberate9 = GetPixelByName("Liberate9");
+                AutoClicker.LeftClickAtPosition(Liberate9.Point);
+                MediumSleep();
+
+                CurrentText = "";
+                while (CurrentText.Trim().ToUpper() != "OK")
+                {
+                    Image LiberateReward = GetImageByName("LiberateReward");
+                    screenshot = TakeScreenshot(LiberateReward.PointA, LiberateReward.PointB);
+                    screenshot.Save("images/temp.png", System.Drawing.Imaging.ImageFormat.Png);
+                    CurrentText = GetTextRt(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\temp.png"));
+                    LongSleep();
+                }
+                Pixel LiberateRewardButton = GetPixelByName("LiberateRewardButton");
+                AutoClicker.LeftClickAtPosition(LiberateRewardButton.Point);
+                MediumSleep();
+                Logging("Daily mission 9 is ready.");
+            }
+            MediumSleep();
+
+            GoToMainScreen();
 
             Logging("Finished daily missions");
-
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            MediumSleep();
-
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            MediumSleep();
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -3037,11 +3074,7 @@ namespace AutoclickerFirestone
 
             MediumSleep();
 
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            MediumSleep();
-
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            MediumSleep();
+            GoToMainScreen();
 
             Logging("Finished engineer reward");
         }
@@ -3071,10 +3104,9 @@ namespace AutoclickerFirestone
             MediumSleep();
             MediumSleep();
 
-            Logging("Finished campaign loot");
+            GoToMainScreen();
 
-            AutoClicker.SendKey("Firestone", "{ESC}");
-            MediumSleep();
+            Logging("Finished campaign loot");
         }
 
         private void btnTestSearchMission_Click(object sender, EventArgs e)
@@ -3088,6 +3120,32 @@ namespace AutoclickerFirestone
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SetOffset();
+                Pixel MissionsMenuCenter = GetPixelByName("DungeonsMenuCenter");
+                AutoClicker.LeftClickAtPosition(MissionsMenuCenter.Point);
+                MediumSleep();
+                int direction = 1;
+                AutoClicker.ScrollMouseWheel(MissionsMenuCenter.Point, direction, 70);
+                MediumSleep();
+                direction = -1;
+                AutoClicker.ScrollMouseWheel(MissionsMenuCenter.Point, direction, 48);
+                MediumSleep();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+          
         }
     }
 }
